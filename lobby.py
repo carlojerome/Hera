@@ -713,7 +713,7 @@ def test_login(driver):
         time.sleep(2)
         #select pictures to upload
         keyboard = Controller()
-        keyboard.type("C:\\Users\\carlo_50718369202157\\Automation\\zoro.jpeg")
+        keyboard.type("C:\\Users\\carlo_50718369202157\\Desktop\\Hera\\zoro.jpeg")
         keyboard.press(Key.enter)
         keyboard.release(Key.enter)
         time.sleep(5)
@@ -767,7 +767,7 @@ def test_login(driver):
         sfile.click()
         time.sleep(2)
         keyboard = Controller()
-        keyboard.type("C:\\Users\\carlo_50718369202157\\Automation\\sanji.jpeg")
+        keyboard.type("C:\\Users\\carlo_50718369202157\\Desktop\\Hera\\sanji.jpeg")
         keyboard.press(Key.enter)
         keyboard.release(Key.enter)
         time.sleep(5)
@@ -870,7 +870,7 @@ def test_login(driver):
         time.sleep(2)
         #select pictures to upload
         keyboard = Controller()
-        keyboard.type("C:\\Users\\carlo_50718369202157\\Automation\\sanji.jpeg")
+        keyboard.type("C:\\Users\\carlo_50718369202157\\Desktop\\Hera\\sanji.jpeg")
         keyboard.press(Key.enter)
         keyboard.release(Key.enter)
         time.sleep(5)
@@ -920,7 +920,7 @@ def test_login(driver):
         time.sleep(2)
         #select pictures to upload
         keyboard = Controller()
-        keyboard.type("C:\\Users\\carlo_50718369202157\\Automation\\zoro.jpeg")
+        keyboard.type("C:\\Users\\carlo_50718369202157\\Desktop\\Hera\\zoro.jpeg")
         keyboard.press(Key.enter)
         keyboard.release(Key.enter)
         time.sleep(5)
@@ -974,7 +974,7 @@ def test_login(driver):
         sfile.click()
         time.sleep(2)
         keyboard = Controller()
-        keyboard.type("C:\\Users\\carlo_50718369202157\\Automation\\luffy.png")
+        keyboard.type("C:\\Users\\carlo_50718369202157\\Desktop\\Hera\\luffy.png")
         keyboard.press(Key.enter)
         keyboard.release(Key.enter)
         time.sleep(5)
@@ -1185,8 +1185,8 @@ def test_login(driver):
         banner.click()
         time.sleep(3)
         #select pictures to upload
-        file_path = "C:\\Users\\carlo_50718369202157\\Automation\\zoro.jpeg"
-        file_path2 = "C:\\Users\\carlo_50718369202157\\Automation\\shanks.jpeg"
+        file_path = "C:\\Users\\carlo_50718369202157\\Desktop\\Hera\\zoro.jpeg"
+        file_path2 = "C:\\Users\\carlo_50718369202157\\Desktop\\Hera\\shanks.jpeg"
         keyboard = Controller()
         keyboard.type(file_path)
         keyboard.press(Key.enter)
