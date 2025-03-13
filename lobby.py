@@ -651,7 +651,7 @@ def test_login(driver):
         time.sleep(2)
         #select pictures to upload
         keyboard = Controller()
-        keyboard.type("C:\\Users\\carlo_50718369202157\\Automation\\luffy.png")
+        keyboard.type("C:\\Users\\carlo_50718369202157\\Desktop\\Hera\\luffy.png")
         keyboard.press(Key.enter)
         keyboard.release(Key.enter)
         time.sleep(5)
