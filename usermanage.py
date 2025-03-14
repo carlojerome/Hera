@@ -340,8 +340,9 @@ def test_login(driver):
 
         print("All rows in the table reflect the selected option!")
         print("BOA-PMS-074, passed") 
-        reset.click()
         time.sleep(2)
+        reset.click()
+        time.sleep(3)
 
         #BOA-PMS-075 / date created
 
