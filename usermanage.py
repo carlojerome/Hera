@@ -414,12 +414,11 @@ def test_login(driver):
         rolen = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'form[class="p-[20px] w-full scroll-y"] > div:nth-child(1) >  div:nth-child(4) > div > div')))
         assert rolen.is_displayed, "no displayed role name field"
         rolen.click()
-        #human_typing_action_chains(driver, rolen, "super")
-        time.sleep(2)
+        time.sleep(3)
         #select super admin
-        admin = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[title="Super Administrator"]')))
-        assert admin.is_displayed, "no admin in dropdown"
-        admin.click()
+        admin1 = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[title="Super Administrator"]')))
+        assert admin1.is_displayed, "no admin in dropdown"
+        admin1.click()
         time.sleep(2)
 
         #click language
