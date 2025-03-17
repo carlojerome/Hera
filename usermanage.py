@@ -379,6 +379,9 @@ def test_login(driver):
         
         # print("BOA-PMS-075, passed")
 
+        driver.refresh()
+        time.sleep(4)
+
         #BOA-PMS-076 / Add user with all inputs
         #click add user
         adduser = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'form > section > button.border.border-y-2.border-black.btn.btn-success')))
@@ -414,12 +417,14 @@ def test_login(driver):
         rolen = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'form[class="p-[20px] w-full scroll-y"] > div:nth-child(1) >  div:nth-child(4) > div > div')))
         assert rolen.is_displayed, "no displayed role name field"
         rolen.click()
-        time.sleep(3)
-        #select super admin
-        admin1 = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[title="Super Administrator"]')))
-        assert admin1.is_displayed, "no admin in dropdown"
-        admin1.click()
+        #human_typing_action_chains(driver, rolen, "super")
         time.sleep(2)
+        #select super admin
+        admin = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[title="Super Administrator"]')))
+        assert admin.is_displayed, "no admin in dropdown"
+        admin.click()
+        time.sleep(2)
+
 
         #click language
         language = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'form[class="p-[20px] w-full scroll-y"] > div:nth-child(1) >  div:nth-child(5) > div > div')))
@@ -1004,7 +1009,52 @@ def test_login(driver):
         time.sleep(3)
         print("BOA-PMS-095, passed")
 
+        #BOA-PMS-096 / Username Column / read only
+        # Get all the rows in the table
+        table_rows = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'tbody > tr')))
+        assert len(table_rows) > 0, "No rows found in the table"
 
+        # Loop through each row to check the column (Assume we are checking the first column for input)
+        for row in table_rows:
+            column = row.find_element(By.CSS_SELECTOR, 'td:nth-child(1)')  # Change nth-child based on your column
+            column_text = column.text.strip()  # Get the text content of the column
+    
+        # Assert that the column has input (non-empty)
+        assert column_text != "", f"Column in row {table_rows.index(row) + 1} is empty."
+
+        print("All columns contain input.")
+        print("BOA-PMS-096, passed")
+
+        #BOA-PMS-097 / Hyperlink email == same in details
+        # Get all the rows in the table
+        table_rows = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'tbody > tr')))
+        assert len(table_rows) > 0, "No rows found in the table"
+
+        # Loop through each row and check if the text matches in the details page
+        for row in table_rows:
+            # Extract the text from a specific column (let's assume it's the first column with "User Name")
+            table_text = row.find_element(By.CSS_SELECTOR, 'td:nth-child(1)').text.strip()
+
+            # Click on the row to go to the details page
+            row.click()
+            time.sleep(2)
+    
+            # Wait for the details page to load (adjust the selector for the element that confirms page load)
+            detail_element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div[class="og-blue"] > p')))  # Adjust based on your details page structure
+            
+            # Get the text from the details page (assume it's displayed in a div with class "detail-info")
+            detail_text = detail_element.text.strip()
+    
+            # Assert the text in the table matches the detail page
+            assert table_text == detail_text, f"Text mismatch: Table text '{table_text}' does not match details text '{detail_text}'"
+    
+            print(f"✅ Text match successful for {table_text}")
+    
+            # Go back to the table (if needed)
+            driver.back()
+
+        print("All rows text matches their details.")
+        print("BOA-PMS-097, passed")
         upl = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'abutton[class="btn btn-success"]')))
     except NoSuchElementException as e:
             print(f"An error occurred: {e}")
