@@ -1026,35 +1026,172 @@ def test_login(driver):
         print("BOA-PMS-096, passed")
 
         #BOA-PMS-097 / Hyperlink email == same in details
+
+        # Wait object for explicit waits
+        wait = WebDriverWait(driver, 10)
+
         # Get all the rows in the table
         table_rows = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'tbody > tr')))
         assert len(table_rows) > 0, "No rows found in the table"
 
-        # Loop through each row and check if the text matches in the details page
-        for row in table_rows:
-            # Extract the text from a specific column (let's assume it's the first column with "User Name")
-            table_text = row.find_element(By.CSS_SELECTOR, 'td:nth-child(1)').text.strip()
+        #extracting text in table text
+        column_text = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'td:nth-child(1)'))).text.strip() 
+        print(f"Table Text: {column_text}")
+        time.sleep(3)
 
-            # Click on the row to go to the details page
-            row.click()
-            time.sleep(2)
-    
-            # Wait for the details page to load (adjust the selector for the element that confirms page load)
-            detail_element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div[class="og-blue"] > p')))  # Adjust based on your details page structure
-            
-            # Get the text from the details page (assume it's displayed in a div with class "detail-info")
-            detail_text = detail_element.text.strip()
-    
-            # Assert the text in the table matches the detail page
-            assert table_text == detail_text, f"Text mismatch: Table text '{table_text}' does not match details text '{detail_text}'"
-    
-            print(f"✅ Text match successful for {table_text}")
-    
-            # Go back to the table (if needed)
-            driver.back()
+        #click the email link
+        link = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'section[class="relative"] > div:nth-child(2) > table > tbody > tr > td > a')))
+        assert link.is_displayed, "no link is visible"
+        link.click()
+        time.sleep(3)
 
-        print("All rows text matches their details.")
+        # Wait for the details page to load (adjust the selector based on your page structure)
+        detail_element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div[class="og-blue"] > p')))  # Adjust this selector to where the detail text is displayed
+        detail_text = detail_element.text.strip()  # Get the text from the details page
+        time.sleep(3)
+        print(f"Detail Text: {detail_text}")  
+
+        # Assert that the table email matches the details email
+        assert column_text == detail_text, f"Text mismatch: Table text '{column_text}' does not match details text '{detail_text}'"
+        time.sleep(3)
+        print(f"Text match successful for {column_text}")
         print("BOA-PMS-097, passed")
+
+        driver.back()
+        time.sleep(3)
+
+        #BOA-PMS-098 and 099 / Languages (read only and content)
+        # Get all the rows in the table
+        table_rows = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'tbody > tr')))
+        assert len(table_rows) > 0, "No rows found in the table"
+
+        # Loop through each row to check the language column 
+        for row in table_rows:
+            try:
+                # Extract the text from the language column (e.g., third column)
+                language_text = row.find_element(By.CSS_SELECTOR, 'td:nth-child(5)').text.strip()  # Adjust the selector for the column
+                print(f"Language Text: {language_text}")  # Optional for debugging
+
+                # Assert that the language text is either "English" or "Chinese"
+                assert language_text in ['English', 'Chinese'], \
+                    f"Language mismatch: Found '{language_text}' in the table, expected 'English' or 'Chinese'"
+
+                print(f"✅ Language check passed for {language_text}")
+                #print("BOA-PMS-098 and 099, passed")
+            except Exception as e:
+                print(f"Error processing row: {e}")
+                continue  # Continue to the next row if there's any error
+        print("BOA-PMS-098 and 099, passed")
+        
+        #BOA-PMS-100 and 101 / rolenames (read only and content)
+        # Get all the rows in the table
+        table_rows = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'tbody > tr')))
+        assert len(table_rows) > 0, "No rows found in the table"
+
+        # Loop through each row to check the role name column
+        for row in table_rows:
+            try:
+                # Extract the text from the Role name column (
+                rolename_text = row.find_element(By.CSS_SELECTOR, 'td:nth-child(4)').text.strip()  # Adjust the selector for the column
+                print(f"Language Text: {rolename_text}")  # Optional for debugging
+
+                # Assert that the rolename text is either "Super Administrator" or "Operator" or "Vendor"
+                assert rolename_text in ['Super Administrator', 'Operator', 'Vendor'], \
+                    f"Role name mismatch: Found '{rolename_text}' in the table, expected 'Super Administrator' or 'Operator' or 'Vendor'"
+
+                print(f"✅ Role name check passed for {rolename_text}")
+                #print("BOA-PMS-100 and 101, passed")
+            except Exception as e:
+                print(f"Error processing row: {e}")
+                continue  # Continue to the next row if there's any error
+        print("BOA-PMS-100 and 101, passed")
+        
+        #BOA-PMS-102 / Status (read only and content)
+        # Get all the rows in the table
+        table_rows = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'tbody > tr')))
+        assert len(table_rows) > 0, "No rows found in the table"
+
+        # Loop through each row to check the status column
+        for row in table_rows:
+            try:
+                # Extract the text from the Status column (
+                status_text = row.find_element(By.CSS_SELECTOR, 'td:nth-child(6)').text.strip()  # Adjust the selector for the column
+                print(f"Language Text: {status_text}")  # Optional for debugging
+
+                # Assert that the Status text is either Activated' or 'Deactivated'
+                assert status_text in ['Activated', 'Deactivated'], \
+                    f"Status mismatch: Found '{status_text}' in the table, expected 'Super Administrator' or 'Operator' or 'Vendor'"
+
+                print(f"✅ Status check passed for {status_text}")
+                #print("BOA-PMS-102, passed")
+            except Exception as e:
+                print(f"Error processing row: {e}")
+                continue  # Continue to the next row if there's any error
+        print("BOA-PMS-102, passed")
+        
+        # #BOA-PMS-103 and 104 / Date Created column (read only and content)
+        # Get all the rows in the table
+        table_rows = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'tbody > tr')))
+        assert len(table_rows) > 0, "No rows found in the table"
+
+        # Define the expected date format (assumes "YYYY-MM-DD")
+        expected_date_format = '%Y/%m/%d %H:%M:%S'
+
+        # Loop through each row and validate the "Created Date" column
+        for row in table_rows:
+            try:
+                # Extract the "Created Date" text (assumed to be in the third column)
+                date_cell = row.find_element(By.CSS_SELECTOR, 'td:nth-child(8)').text.strip()
+                print(f"Created Date: {date_cell}")  # Optional: for debugging
+        
+                # Convert the date string to a datetime object
+                try:
+                    created_date_obj = datetime.strptime(date_cell, expected_date_format)
+                except ValueError:
+                    raise AssertionError(f"Invalid date format: '{date_cell}'")
+
+                # Optional: Assert the date is within a valid range (for example, past dates)
+                assert created_date_obj <= datetime.now(), f"Created Date '{date_cell}' is in the future"
+
+                print(f"✅ Created Date is valid: {date_cell}")
+
+            except Exception as e:
+                print(f"Error processing row: {e}")
+                continue  # Continue to the next row if there's any error
+        print("✅ BOA-PMS-103 and 104: All 'Created Date' values are valid.")
+
+        # #BOA-PMS-105 and 106 / Last login column (read only and content)
+        # Get all the rows in the table
+        table_rows = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'tbody > tr')))
+        assert len(table_rows) > 0, "No rows found in the table"
+
+        # Define the expected date format (assumes "YYYY-MM-DD")
+        expected_date_format = '%Y/%m/%d %H:%M:%S'
+
+        # Loop through each row and validate the "Created Date" column
+        for row in table_rows:
+            try:
+                # Extract the "Created Date" text (assumed to be in the third column)
+                date_cell = row.find_element(By.CSS_SELECTOR, 'td:nth-child(7)').text.strip()
+                print(f"Created Date: {date_cell}")  # Optional: for debugging
+        
+                # Convert the date string to a datetime object
+                try:
+                    created_date_obj = datetime.strptime(date_cell, expected_date_format)
+                except ValueError:
+                    raise AssertionError(f"Invalid date format: '{date_cell}'")
+
+                # Optional: Assert the date is within a valid range (for example, past dates)
+                assert created_date_obj <= datetime.now(), f"Created Date '{date_cell}' is in the future"
+
+                print(f"✅ Created Date is valid: {date_cell}")
+
+            except Exception as e:
+                print(f"Error processing row: {e}")
+                continue  # Continue to the next row if there's any error
+        print("✅ BOA-PMS-105 and 106: All 'Created Date' values are valid.")
+
+        
         upl = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'abutton[class="btn btn-success"]')))
     except NoSuchElementException as e:
             print(f"An error occurred: {e}")

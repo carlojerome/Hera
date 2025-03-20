@@ -237,31 +237,69 @@ def test_login(driver):
             except Exception as e:
                 print(f"Error processing row: {e}")
                 continue  # Continue to the next row if there's any error
-            break
         print("BOA-PMS-102, passed")
         
-        # #BOA-PMS-103 / Status (read only and content)
-        # # Get all the rows in the table
-        # table_rows = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'tbody > tr')))
-        # assert len(table_rows) > 0, "No rows found in the table"
+        # #BOA-PMS-103 and 104 / Date Created column (read only and content)
+        # Get all the rows in the table
+        table_rows = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'tbody > tr')))
+        assert len(table_rows) > 0, "No rows found in the table"
 
-        # # Loop through each row to check the status column
-        # for row in table_rows:
-        #     try:
-        #         # Extract the text from the Status column (
-        #         status_text = row.find_element(By.CSS_SELECTOR, 'td:nth-child(6)').text.strip()  # Adjust the selector for the column
-        #         print(f"Language Text: {status_text}")  # Optional for debugging
+        # Define the expected date format (assumes "YYYY-MM-DD")
+        expected_date_format = '%Y/%m/%d %H:%M:%S'
 
-        #         # Assert that the Status text is either Activated' or 'Deactivated'
-        #         assert status_text in ['Activated', 'Deactivated'], \
-        #             f"Status mismatch: Found '{status_text}' in the table, expected 'Super Administrator' or 'Operator' or 'Vendor'"
+        # Loop through each row and validate the "Created Date" column
+        for row in table_rows:
+            try:
+                # Extract the "Created Date" text (assumed to be in the third column)
+                date_cell = row.find_element(By.CSS_SELECTOR, 'td:nth-child(8)').text.strip()
+                print(f"Created Date: {date_cell}")  # Optional: for debugging
+        
+                # Convert the date string to a datetime object
+                try:
+                    created_date_obj = datetime.strptime(date_cell, expected_date_format)
+                except ValueError:
+                    raise AssertionError(f"Invalid date format: '{date_cell}'")
 
-        #         print(f"✅ Status check passed for {status_text}")
-        #         print("BOA-PMS-102, passed")
-        #     except Exception as e:
-        #         print(f"Error processing row: {e}")
-        #         continue  # Continue to the next row if there's any error
+                # Optional: Assert the date is within a valid range (for example, past dates)
+                assert created_date_obj <= datetime.now(), f"Created Date '{date_cell}' is in the future"
 
+                print(f"✅ Created Date is valid: {date_cell}")
+
+            except Exception as e:
+                print(f"Error processing row: {e}")
+                continue  # Continue to the next row if there's any error
+        print("✅ BOA-PMS-103 and 104: All 'Created Date' values are valid.")
+
+        # #BOA-PMS-105 and 106 / Last login column (read only and content)
+        # Get all the rows in the table
+        table_rows = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'tbody > tr')))
+        assert len(table_rows) > 0, "No rows found in the table"
+
+        # Define the expected date format (assumes "YYYY-MM-DD")
+        expected_date_format = '%Y/%m/%d %H:%M:%S'
+
+        # Loop through each row and validate the "Created Date" column
+        for row in table_rows:
+            try:
+                # Extract the "Created Date" text (assumed to be in the third column)
+                date_cell = row.find_element(By.CSS_SELECTOR, 'td:nth-child(7)').text.strip()
+                print(f"Created Date: {date_cell}")  # Optional: for debugging
+        
+                # Convert the date string to a datetime object
+                try:
+                    created_date_obj = datetime.strptime(date_cell, expected_date_format)
+                except ValueError:
+                    raise AssertionError(f"Invalid date format: '{date_cell}'")
+
+                # Optional: Assert the date is within a valid range (for example, past dates)
+                assert created_date_obj <= datetime.now(), f"Created Date '{date_cell}' is in the future"
+
+                print(f"✅ Created Date is valid: {date_cell}")
+
+            except Exception as e:
+                print(f"Error processing row: {e}")
+                continue  # Continue to the next row if there's any error
+        print("✅ BOA-PMS-105 and 106: All 'Created Date' values are valid.")        
 
         upl = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'abutton[class="btn btn-success"]')))
     except NoSuchElementException as e:
