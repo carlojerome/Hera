@@ -1191,7 +1191,7 @@ def test_login(driver):
                 continue  # Continue to the next row if there's any error
         print("✅ BOA-PMS-105 and 106: All 'Created Date' values are valid.")
 
-        
+
         upl = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'abutton[class="btn btn-success"]')))
     except NoSuchElementException as e:
             print(f"An error occurred: {e}")
