@@ -892,7 +892,7 @@ def test_login(driver):
         wait.until(EC.visibility_of((errmessage1)))
         assert errmessage1.is_displayed, "no error message"
 
-        if errmessage1.text == "The new password field is required.":
+        if errmessage1.text == "The current password field is required.":
             print("error message1 is correct")
         else:
             print(f"incorrect error message1! found: {errmessage1.text}")
@@ -903,9 +903,9 @@ def test_login(driver):
         assert errmessage2.is_displayed, "no error message"
 
         if errmessage2.text == "The new password field is required.":
-            print("error message1 is correct")
+            print("error message2 is correct")
         else:
-            print(f"incorrect error message1! found: {errmessage2.text}")
+            print(f"incorrect error message2! found: {errmessage2.text}")
 
         time.sleep(1)
         errmessage3 = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[class="w-full"] > div:nth-child(2) > section > div > form > div > div:nth-child(3) > div > div:nth-child(3) > span:nth-child(1)')))
@@ -913,9 +913,9 @@ def test_login(driver):
         assert errmessage3.is_displayed, "no error message"
 
         if errmessage3.text == "The confirm password field is required.":
-            print("error message1 is correct")
+            print("error message3 is correct")
         else:
-            print(f"incorrect error message1! found: {errmessage3.text}")
+            print(f"incorrect error message3! found: {errmessage3.text}")
         time.sleep(1)
         print("BOA-PS-026, passed")
         time.sleep(8)
