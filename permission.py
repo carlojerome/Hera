@@ -1599,7 +1599,7 @@ def test_login(driver):
         #TS-002 - Permission/User Manage	
         # search without all search inputs										
         #go to user manage
-        perm = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[class="nav"] > div:nth-child(5) > div > div')))
+        perm = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[class="nav"] > div:nth-child(5) > div > div > a:nth-child(2)')))
         perm.click()
         time.sleep(2)
         assert perm.is_displayed, "not visible"
@@ -2665,6 +2665,94 @@ def test_login(driver):
                 print(f"Error processing row: {e}")
                 continue  # Continue to the next row if there's any error
         print("✅ BOA-PMS-105 and 106: All 'Created Date' values are valid.")
+
+        #BOA-PMS-107 / Validate the Reset Password button (NO)
+        #select reset user password
+        action = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'tbody > tr:nth-child(1) > td:nth-child(9) > span')))
+        assert action.is_displayed, "no action button"
+        action.click()
+        time.sleep(2)
+
+        #check if the text header is correct
+        theader = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[class="modal-header"] > span')))
+        assert theader.is_displayed(), "no header text displayed"
+        theader_text = theader.text.strip()
+
+        if theader_text == "Confirm Password Reset":
+            print("correct header text")
+        else:
+            print(f"Incorrect text! found: {theader_text}")
+
+        time.sleep(1)
+        #check no button
+        no = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[class="modal-inner"] > div:nth-child(2) > section > button:nth-child(2)')))
+        assert no.is_displayed(), "no no button"
+        print("✅ No button is visible.")
+        no.click()
+        time.sleep(2)
+
+        #check if no button is clicked (Role Name in table is visible)
+        role_name = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'thead > th:nth-child(4) > button')))
+        assert role_name.is_displayed(), "role name is not displayed"
+        print("✅ Role name is visible.")
+        print("BOA-PMS-107, passed")
+
+        #BOA-PMS-108 / Validate the Reset Password button (YES)
+        #select reset user password
+        action = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'tbody > tr:nth-child(1) > td:nth-child(9) > span')))
+        assert action.is_displayed, "no action button"
+        action.click()
+        time.sleep(2)
+
+        #check if the text header is correct
+        theader = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[class="modal-header"] > span')))
+        assert theader.is_displayed(), "no header text displayed"
+        print("✅ text header is visible.")
+        theader_text = theader.text.strip()
+
+        if theader_text == "Confirm Password Reset":
+            print("correct header text")
+        else:
+            print(f"Incorrect text! found: {theader_text}")
+
+        time.sleep(1)
+        #check yes button
+        yes = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[class="modal-inner"] > div:nth-child(2) > section > button:nth-child(1)')))
+        assert yes.is_displayed(), "no yes button"
+        print("✅ Yes button is visible.")
+        yes.click()
+        time.sleep(2)
+        
+        #check if 2nd modal is displayed
+        success_modal = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[class="modal-inner"] > div:nth-child(1) > span')))
+        assert success_modal.is_displayed(), "no second success modal displayed"
+        print("✅ 2nd modal is visible.")
+        success_modal_text = success_modal.text.strip()
+
+        if success_modal_text == "Password Reset Success":
+            print("second header text in modal is correct")
+        else:
+            print(f"Incorrect text! found: {success_modal_text}")
+        time.sleep(2)
+
+        #check if copy button is working
+        copybtn = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[class="modal-inner"] > div:nth-child(2) > div > div > div > div:nth-child(2) > div > button')))
+        assert copybtn.is_displayed(), "no copy button displayed"
+        print("✅ copy button is visible.")
+        copybtn.click()
+        time.sleep(2)
+
+        #check if there's success prompt
+        success = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[class="toast-message"] > p')))
+        wait.until(EC.visibility_of(success))
+        assert success.is_displayed, "no success prompt"
+        if success.text == "Password copied successfully!":
+             print("Correct success prompt text")
+        else:
+             print(f"Incorrect prompt text! Found: {success.text}")
+        time.sleep(7)
+
+        print("BOA-PMS-108, passed")
 
         upl = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'abutton[class="btn btn-success"]')))
     except NoSuchElementException as e:
