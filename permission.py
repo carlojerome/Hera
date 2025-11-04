@@ -1403,7 +1403,7 @@ def test_login(driver):
         no = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[class="modal-inner"] > div:nth-child(2) > section > button:nth-child(2)')))
         assert no.is_displayed, "no button displayed"
         no.click()
-        time.sleep
+        time.sleep(2)
         print("BOA-PMS-054, passed")
 
         #BOA-PMS-055 / exit button

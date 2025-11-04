@@ -175,7 +175,7 @@ def test_login(driver):
         print(f"empty value! {vendor_name.get_property("value")}")
         print("BOA-CTM-132, passed")
 
-        #BOA-CTM-133 / "Verify the ""Vendor Name"" field with input (Existing)"
+        #BOA-CTM-133 / "Verify the "Vendor Name" field with input (Existing)"
         vendor_name = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'input[id="vendor_name"]')))
         vendor_name.click()
         time.sleep(1)

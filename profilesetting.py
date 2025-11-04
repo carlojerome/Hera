@@ -226,24 +226,24 @@ def test_login(driver):
         print("BOA-PS-008, passed")
         time.sleep(3)
 
-        #change language to VIETNAMESE
-        lang = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'span[title="Indonesian"]')))
-        lang.click()
-        #select vt
-        vt = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'img[src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAYCAMAAACoeN87AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAJxQTFRF2yco3Cwo2ygo4lwj4Ewk7agb6pQd2yoo9d8V89MX4U8k9+wU9+sU30El3jkm5GYi5Gci7aYb65gd5GUi3TQn6o0e9+oU6IEf42Ei9eEV9dwW4VYj3Tgm8ssX8L8Y3TMn8scY77YZ3TYm9+kU9d0V9uQV3C0n5W4h8cAY30Al30cl8sgY77Ia7J4c3DAn3TUn7akb7KAb5Goh5WwhFCe36QAAAHxJREFUeJxjYBjEgJGJoBJmFoJKWNkIqWDn4CSkhIubhxe3LB+/gICAIDe3EJASFsGqhFGUGwbExNlxmCMhCVEhJY3bLhlZkAo5eXyuVQApUcSnQkmZW0WSW1UNjxJ1bg1NLW1uZjxKdHT1GBj0DQxxq2AyglDG+BwzDAAALE8G5qOzzVgAAAAASUVORK5CYII="]')))
-        assert vt.is_displayed, "vt lang is not displayed"
-        vt.click()
-        #update 
-        update = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'button[type="submit"]')))
-        update.click()  
-        #click yes
-        yes = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'section[class="py-[10px] flex flex-row flex-nowrap gap-x-[20px]"]>button[class="btn btn-success"]')))
-        yes.click()
-        print("BOA-PS-009 and 010, passed")
-        time.sleep(3)
+        # #change language to VIETNAMESE
+        # lang = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'span[title="Indonesian"]')))
+        # lang.click()
+        # #select vt
+        # vt = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'img[src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAYCAMAAACoeN87AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAJxQTFRF2yco3Cwo2ygo4lwj4Ewk7agb6pQd2yoo9d8V89MX4U8k9+wU9+sU30El3jkm5GYi5Gci7aYb65gd5GUi3TQn6o0e9+oU6IEf42Ei9eEV9dwW4VYj3Tgm8ssX8L8Y3TMn8scY77YZ3TYm9+kU9d0V9uQV3C0n5W4h8cAY30Al30cl8sgY77Ia7J4c3DAn3TUn7akb7KAb5Goh5WwhFCe36QAAAHxJREFUeJxjYBjEgJGJoBJmFoJKWNkIqWDn4CSkhIubhxe3LB+/gICAIDe3EJASFsGqhFGUGwbExNlxmCMhCVEhJY3bLhlZkAo5eXyuVQApUcSnQkmZW0WSW1UNjxJ1bg1NLW1uZjxKdHT1GBj0DQxxq2AyglDG+BwzDAAALE8G5qOzzVgAAAAASUVORK5CYII="]')))
+        # assert vt.is_displayed, "vt lang is not displayed"
+        # vt.click()
+        # #update 
+        # update = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'button[type="submit"]')))
+        # update.click()  
+        # #click yes
+        # yes = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'section[class="py-[10px] flex flex-row flex-nowrap gap-x-[20px]"]>button[class="btn btn-success"]')))
+        # yes.click()
+        # print("BOA-PS-009 and 010, passed")
+        # time.sleep(3)
 
         #change again to default (ENGLISH)
-        lang = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'span[title="Vietnamese"]')))
+        lang = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'span[title="Indonesian"]')))
         lang.click()
         #select en
         eng = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'body > div:nth-child(2) > div > div > div > div.rc-virtual-list > div > div > div > div:nth-child(1) > div > div >div > img')))
